@@ -5,15 +5,23 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".toBuyFragment"
+    tools:context=".fragments.toBuyFragment"
     tools:showIn="@layout/activity_to_buy">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvShoppingList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tiToBuy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiToBuy"
         android:layout_width="288dp"
         android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tiAmountToBuy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.75">
 
@@ -22,6 +30,24 @@
             android:layout_width="268dp"
             android:layout_height="52dp"
             android:hint="What to buy?"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiAmountToBuy"
+        android:layout_width="288dp"
+        android:layout_height="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.75">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmountToBuy"
+            android:layout_width="268dp"
+            android:layout_height="52dp"
+            android:hint="How many?"
             android:inputType="text"
             android:maxLines="1" />
 
