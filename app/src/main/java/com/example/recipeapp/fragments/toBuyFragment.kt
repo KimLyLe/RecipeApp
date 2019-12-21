@@ -3,10 +3,8 @@ package com.example.recipeapp.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,6 +19,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.view.MenuInflater
+import android.R
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 /**
@@ -38,6 +39,7 @@ class toBuyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         // Inflate the layout for this fragment
         return inflater.inflate(com.example.recipeapp.R.layout.activity_to_buy, container, false)
     }
@@ -128,6 +130,33 @@ class toBuyFragment : Fragment() {
             this@toBuyFragment.shoppingList.clear()
             this@toBuyFragment.shoppingList.addAll(shoppingList)
             this@toBuyFragment.productAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun deleteShoppingList() {
+        mainScope.launch {
+            withContext(Dispatchers.IO) {
+                productRepository.deleteAllProducts()
+            }
+            getShoppingListFromDatabase()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(com.example.recipeapp.R.menu.menu_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            com.example.recipeapp.R.id.action_delete_shopping_list -> {
+                deleteShoppingList()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
