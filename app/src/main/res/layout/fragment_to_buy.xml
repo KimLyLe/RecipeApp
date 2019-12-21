@@ -5,24 +5,26 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".toBuyFragment">
+    tools:context=".toBuyFragment"
+    tools:showIn="@layout/activity_to_buy">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiToBuy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_width="288dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.75">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etToBuy"
-            android:layout_width="347dp"
-            android:layout_height="53dp"
+            android:layout_width="268dp"
+            android:layout_height="52dp"
             android:hint="What to buy?"
             android:inputType="text"
             android:maxLines="1" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

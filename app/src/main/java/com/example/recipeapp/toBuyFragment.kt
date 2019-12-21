@@ -17,7 +17,7 @@ class toBuyFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_to_buy, container, false)
+        return inflater.inflate(R.layout.activity_to_buy, container, false)
     }
 
 
