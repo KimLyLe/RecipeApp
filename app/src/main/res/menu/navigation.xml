@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:title="RECIPES" />
+    <item
+        android:id="@+id/favFragment"
+        android:icon="@drawable/ic__heart_black"
+        android:title="FAVS" />
+
+    <item
+        android:id="@+id/toBuyFragment"
+        android:icon="@drawable/ic_ingredients_black"
+        android:title="TO BUY" />
+
+</menu>
