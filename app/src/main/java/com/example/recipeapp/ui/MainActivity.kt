@@ -3,6 +3,7 @@ package com.example.recipeapp.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,13 +26,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNavigation() {
         // The NavController
+
         val navController = findNavController(R.id.navHostFragment)
 
         // Connect the navHostFragment with the BottomNavigationView.
         NavigationUI.setupWithNavController(navView, navController)
 
         // Connect the navHostFragment with the Toolbar.
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.homeFragment, R.id.favFragment,
+            R.id.toBuyFragment))
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
         // Add a Destination Changed Listener. This gets called whenever the navigation controller is navigating to another fragment.
