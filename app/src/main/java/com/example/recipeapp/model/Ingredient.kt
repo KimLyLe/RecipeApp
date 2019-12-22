@@ -5,9 +5,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Recipe (
-    @SerializedName("title")var title: String,
+data class Ingredient (
+    @SerializedName("name")var name: String,
     @SerializedName("image")var image: String,
-    @SerializedName("instructions")var instructions: String,
-    @SerializedName("extendedIngredients")var ingredients: List<Ingredient>
+    @SerializedName("original")var amount: String
 ) : Parcelable

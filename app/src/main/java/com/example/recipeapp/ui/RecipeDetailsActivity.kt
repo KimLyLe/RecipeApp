@@ -24,6 +24,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
             val recipe: Recipe = recipe.get("Recipe") as Recipe
             Glide.with(this).load(recipe.image).into(ivRecipeDetails)
             tvRecipeTitle.text = recipe.title
+            tvRecipeInstructionsTitle.text = "Instructions"
+            tvRecipeInstructions.text = recipe.instructions
         }
     }
 
