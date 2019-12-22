@@ -7,14 +7,41 @@
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tiSearch"
+        android:layout_width="307dp"
+        android:layout_height="52dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.75">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:hint="Search for recipes"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="15dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecipesHome"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tiSearch" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="39dp"
+        android:layout_height="34dp"
+        android:src="@drawable/ic_search_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tiSearch"
+        app:layout_constraintStart_toEndOf="@+id/tiSearch"
+        app:layout_constraintTop_toTopOf="@+id/tiSearch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
