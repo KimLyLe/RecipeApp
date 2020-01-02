@@ -3,10 +3,12 @@ package com.example.recipeapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.webkit.URLUtil
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.model.Recipe
 import kotlinx.android.synthetic.main.activity_recipe_details.*
+import kotlinx.android.synthetic.main.item_recipe.view.*
 import java.lang.Exception
 
 class RecipeDetailsActivity : AppCompatActivity() {
@@ -22,10 +24,10 @@ class RecipeDetailsActivity : AppCompatActivity() {
         val recipe = intent.extras
         if(recipe != null){
             val recipe: Recipe = recipe.get("Recipe") as Recipe
-            Glide.with(this).load(recipe.image).into(ivRecipeDetails)
+            if (URLUtil.isValidUrl(recipe.image)) { Glide.with(this).load(recipe.image).into(ivRecipeDetails) }
+            else { Glide.with(this).load("https://spoonacular.com/recipeImages/" +  recipe.image).into(ivRecipeDetails) }
             tvRecipeTitle.text = recipe.title
             tvRecipeInstructionsTitle.text = "Instructions"
-            tvRecipeInstructions.text = recipe.instructions
         }
     }
 

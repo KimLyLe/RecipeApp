@@ -8,22 +8,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.database.ProductRepository
-import com.example.recipeapp.model.Product
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.model.RecipeAdapter
 import com.example.recipeapp.ui.MainActivityViewModel
-import com.example.recipeapp.ui.ProductAdapter
 import com.example.recipeapp.ui.RecipeDetailsActivity
-import kotlinx.android.synthetic.main.activity_to_buy.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_to_buy.*
 
 /**
  * A simple [Fragment] subclass.
@@ -51,6 +46,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViews() {
+        ivSearch.setOnClickListener{
+            val searchInput = etSearch.text.toString()
+            viewModel.getRecipeListSearch(searchInput)
+        }
         rvRecipesHome.layoutManager = LinearLayoutManager(thisContext, RecyclerView.VERTICAL, false)
         rvRecipesHome.adapter = recipeAdapter
         viewModel.getRecipeList() // Get a random recipes from spoonacular api

@@ -8,6 +8,5 @@ import kotlinx.android.parcel.Parcelize
 data class Recipe (
     @SerializedName("title")var title: String,
     @SerializedName("image")var image: String,
-    @SerializedName("instructions")var instructions: String,
-    @SerializedName("extendedIngredients")var ingredients: List<Ingredient>
+    @SerializedName("id")var id: String
 ) : Parcelable

@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
@@ -33,7 +35,8 @@ class RecipeAdapter(private val recipes: List<Recipe>, private val onClick: (Rec
         }
 
         fun bind(recipe: Recipe) {
-            Glide.with(context).load( recipe.image).into(itemView.ivRecipe)
+            if (URLUtil.isValidUrl(recipe.image)) { Glide.with(context).load(recipe.image).into(itemView.ivRecipe) }
+            else { Glide.with(context).load("https://spoonacular.com/recipeImages/" +  recipe.image).into(itemView.ivRecipe) }
             itemView.tvTitleHome.text = recipe.title
         }
     }
