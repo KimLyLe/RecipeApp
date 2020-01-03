@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.google.gson.GsonBuilder
 
 class RecipeApi {
     companion object {
@@ -19,11 +20,18 @@ class RecipeApi {
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
 
+            val gson = GsonBuilder()
+                .registerTypeAdapter(Step::class.java, StepDeserializer())
+                .registerTypeAdapter(Ingredient::class.java, IngredientDeserializer())
+                .registerTypeAdapter(Equipment::class.java, EquipmentDeserializer())
+                .create()
+
+
 // Create the Retrofit instance
             val recipeApi = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
 
             // Return the Retrofit NumbersApiService
