@@ -8,14 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
+import com.example.recipeapp.model.Ingredient
+import com.example.recipeapp.model.Instruction
 import com.example.recipeapp.model.Recipe
-import com.example.recipeapp.model.RecipeAdapter
+import com.example.recipeapp.ui.RecipeAdapter
 import com.example.recipeapp.ui.MainActivityViewModel
 import com.example.recipeapp.ui.RecipeDetailsActivity
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -28,7 +29,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: MainActivityViewModel
     private val recipes = arrayListOf<Recipe>()
     private lateinit var thisContext: Context
-    private val recipeAdapter = RecipeAdapter(recipes, onClick = {onMovieClick(it)})
+    private val recipeAdapter =
+        RecipeAdapter(recipes, onClick = { onMovieClick(it) })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

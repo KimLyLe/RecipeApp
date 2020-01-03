@@ -13,6 +13,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private val recipeRepository = RecipeRepository()
     val recipe = MutableLiveData<List<Recipe>>()
+    val instruction = MutableLiveData<List<Instruction>>()
     val error = MutableLiveData<String>()
 
     /**
@@ -43,4 +44,17 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
         })
     }
+
+    fun getRecipeIngredientsAndInstructions(recipeId: String) {
+        recipeRepository.getRecipeIngredientsAndInstructions(recipeId).enqueue(object : Callback<List<Instruction>> {
+            override fun onResponse(call: Call<List<Instruction>>, response: Response<List<Instruction>>) =
+                if (response.isSuccessful) instruction.value = response.body()
+                else error.value = "An error occurred: ${response.errorBody().toString()}"
+
+            override fun onFailure(call: Call<List<Instruction>>, t: Throwable) {
+                error.value = t.message
+            }
+        })
+    }
+
 }
