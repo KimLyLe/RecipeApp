@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class Instruction (
     @SerializedName("name")var name: String,
-    @SerializedName("steps")var steps: Step
+    @SerializedName("steps")var steps: List<Step>
 )

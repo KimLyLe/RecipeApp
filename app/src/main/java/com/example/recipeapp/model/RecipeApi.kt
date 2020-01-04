@@ -20,18 +20,11 @@ class RecipeApi {
                 .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
 
-            val gson = GsonBuilder()
-                .registerTypeAdapter(Step::class.java, StepDeserializer())
-                .registerTypeAdapter(Ingredient::class.java, IngredientDeserializer())
-                .registerTypeAdapter(Equipment::class.java, EquipmentDeserializer())
-                .create()
-
-
 // Create the Retrofit instance
             val recipeApi = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             // Return the Retrofit NumbersApiService

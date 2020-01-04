@@ -23,7 +23,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private val ingredients = arrayListOf<Ingredient>()
     private val steps = arrayListOf<Step>()
     private val equipment = arrayListOf<Equipment>()
-    private val ingredientAdapter = IngredientAdapter(steps)
+    private val ingredientAdapter = IngredientAdapter(instruction)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

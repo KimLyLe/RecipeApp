@@ -14,6 +14,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val recipeRepository = RecipeRepository()
     val recipe = MutableLiveData<List<Recipe>>()
     val instruction = MutableLiveData<List<Instruction>>()
+    val step = MutableLiveData<List<Step>>()
     val error = MutableLiveData<String>()
 
     /**
@@ -44,6 +45,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
             }
         })
     }
+
 
     fun getRecipeIngredientsAndInstructions(recipeId: String) {
         recipeRepository.getRecipeIngredientsAndInstructions(recipeId).enqueue(object : Callback<List<Instruction>> {

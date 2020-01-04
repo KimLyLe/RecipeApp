@@ -10,7 +10,7 @@ import com.example.recipeapp.model.*
 import kotlinx.android.synthetic.main.item_ingredient.view.*
 import kotlinx.android.synthetic.main.item_product.view.*
 
-class IngredientAdapter(private val step: List<Step>)
+class IngredientAdapter(private val instruction: List<Instruction>)
     : RecyclerView.Adapter<IngredientAdapter.ViewHolder>() {
 
     private lateinit var context: Context
@@ -22,15 +22,15 @@ class IngredientAdapter(private val step: List<Step>)
         )
     }
 
-    override fun getItemCount(): Int = step.size
+    override fun getItemCount(): Int = instruction.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(step[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(instruction[position])
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(step: Step) {
+        fun bind(instruction: Instruction) {
             //itemView.tvInstrNr.text = instruction.name
             //itemView.tvIngredients.text = step.steps[0].ingredients.toString()
-            itemView.tvStep.text = step.steps
+            itemView.tvInstrNr.text = instruction.steps[0].toString()
             //itemView.tvIngredients.text = ingredients.name
             //itemView.tvEquipment.text = equipment.name
         }
