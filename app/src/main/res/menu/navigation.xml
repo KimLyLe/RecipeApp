@@ -5,10 +5,6 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_format_list_bulleted_black_24dp"
         android:title="RECIPES" />
-    <item
-        android:id="@+id/favFragment"
-        android:icon="@drawable/ic__heart_black"
-        android:title="FAVS" />
 
     <item
         android:id="@+id/toBuyFragment"

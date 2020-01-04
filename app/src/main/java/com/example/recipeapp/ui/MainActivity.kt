@@ -32,15 +32,13 @@ class MainActivity : AppCompatActivity() {
 
         // Connect the navHostFragment with the Toolbar.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.homeFragment, R.id.favFragment,
-            R.id.toBuyFragment))
+            R.id.homeFragment, R.id.toBuyFragment))
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
         // Add a Destination Changed Listener. This gets called whenever the navigation controller is navigating to another fragment.
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.homeFragment -> navView.visibility = View.VISIBLE
-                R.id.favFragment -> navView.visibility = View.VISIBLE
                 R.id.toBuyFragment -> navView.visibility = View.VISIBLE
             }
         }
