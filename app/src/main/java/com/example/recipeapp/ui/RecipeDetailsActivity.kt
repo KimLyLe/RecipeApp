@@ -12,8 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.model.*
 import kotlinx.android.synthetic.main.activity_recipe_details.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.item_ingredient.*
+import kotlinx.android.synthetic.main.item_step.*
 import java.lang.Exception
 
 class RecipeDetailsActivity : AppCompatActivity() {
@@ -23,7 +22,8 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private val ingredients = arrayListOf<Ingredient>()
     private val steps = arrayListOf<Step>()
     private val equipment = arrayListOf<Equipment>()
-    private val ingredientAdapter = IngredientAdapter(instruction)
+    private val stepAdapter = StepAdapter(steps)
+    private val ingredientAdapter = IngredientAdapter(ingredients)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +42,14 @@ class RecipeDetailsActivity : AppCompatActivity() {
             else { Glide.with(this).load("https://spoonacular.com/recipeImages/" +  recipe.image).into(ivRecipeDetails) }
             tvRecipeTitle.text = recipe.title
             tvRecipeInstructionsTitle.text = "Instructions"
+            viewModel.getRecipeSteps(recipe.id)
             viewModel.getRecipeIngredientsAndInstructions(recipe.id)
+            viewModel.getRecipeIngredients(recipe.id)
             rvInstructions.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-            rvInstructions.adapter = ingredientAdapter
+            rvInstructions.adapter = stepAdapter
+
+            rvIngredients.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+            rvIngredients.adapter = ingredientAdapter
         }
     }
 
@@ -53,6 +58,17 @@ class RecipeDetailsActivity : AppCompatActivity() {
         viewModel.instruction.observe(this, Observer {
             instruction.clear()
             instruction.addAll(it)
+            stepAdapter.notifyDataSetChanged()
+        })
+        viewModel.step.observe(this, Observer {
+            steps.clear()
+            steps.addAll(it)
+            stepAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.ingredient.observe(this, Observer {
+            ingredients.clear()
+            ingredients.addAll(it)
             ingredientAdapter.notifyDataSetChanged()
         })
     }

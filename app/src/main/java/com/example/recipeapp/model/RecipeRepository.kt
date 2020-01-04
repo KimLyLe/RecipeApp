@@ -15,6 +15,7 @@ class RecipeRepository {
 
     fun getRecipeIngredientsAndInstructions(recipeId: String) = recipeApiIngredients.getRecipeIngredientsAndInstructions(recipeId)
 
+    fun getRecipeSteps(recipeId: String) = recipeApiIngredients.getRecipeSteps(recipeId)
 
 
 }

@@ -14,6 +14,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     private val recipeRepository = RecipeRepository()
     val recipe = MutableLiveData<List<Recipe>>()
     val instruction = MutableLiveData<List<Instruction>>()
+    val ingredient = MutableLiveData<List<Ingredient>>()
     val step = MutableLiveData<List<Step>>()
     val error = MutableLiveData<String>()
 
@@ -51,6 +52,40 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         recipeRepository.getRecipeIngredientsAndInstructions(recipeId).enqueue(object : Callback<List<Instruction>> {
             override fun onResponse(call: Call<List<Instruction>>, response: Response<List<Instruction>>) =
                 if (response.isSuccessful) instruction.value = response.body()
+                else error.value = "An error occurred: ${response.errorBody().toString()}"
+
+            override fun onFailure(call: Call<List<Instruction>>, t: Throwable) {
+                error.value = t.message
+            }
+        })
+    }
+
+    fun getRecipeSteps(recipeId: String) {
+        recipeRepository.getRecipeSteps(recipeId).enqueue(object : Callback<List<Instruction>> {
+            override fun onResponse(call: Call<List<Instruction>>, response: Response<List<Instruction>>) =
+                if (response.isSuccessful)
+                    for (instruction in response.body()!!) {
+                        step.value = instruction.steps
+                    }
+                else error.value = "An error occurred: ${response.errorBody().toString()}"
+
+            override fun onFailure(call: Call<List<Instruction>>, t: Throwable) {
+                error.value = t.message
+            }
+        })
+    }
+
+    fun getRecipeIngredients(recipeId: String) {
+        recipeRepository.getRecipeSteps(recipeId).enqueue(object : Callback<List<Instruction>> {
+                var ingrList: ArrayList<Ingredient>? = ArrayList()
+            override fun onResponse(call: Call<List<Instruction>>, response: Response<List<Instruction>>) =
+                if (response.isSuccessful)
+                    for (instruction in response.body()!!) {
+                        for (steps in instruction.steps) {
+                            ingrList?.addAll(steps.ingredients)
+                        }
+                        ingredient.value = ingrList
+                    }
                 else error.value = "An error occurred: ${response.errorBody().toString()}"
 
             override fun onFailure(call: Call<List<Instruction>>, t: Throwable) {
