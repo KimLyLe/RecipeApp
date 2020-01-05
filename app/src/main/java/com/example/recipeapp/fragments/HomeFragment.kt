@@ -13,11 +13,17 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.RecipeAdapter
 import com.example.recipeapp.ui.MainActivityViewModel
 import com.example.recipeapp.ui.RecipeDetailsActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import android.content.res.ColorStateList
+import android.graphics.Color.parseColor
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -27,6 +33,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: MainActivityViewModel
     private val recipes = arrayListOf<Recipe>()
     private lateinit var thisContext: Context
+    private lateinit var progressBar: ProgressBar
     private val recipeAdapter =
         RecipeAdapter(recipes, onClick = { onMovieClick(it) })
 
@@ -50,6 +57,12 @@ class HomeFragment : Fragment() {
             val searchInput = etSearch.text.toString()
             viewModel.getRecipeListSearch(searchInput)
         }
+        progressBar = ProgressBar(thisContext)
+        val colorCodeDark = parseColor("#D81B60")
+        progressBar.indeterminateTintList = ColorStateList.valueOf(colorCodeDark)
+        val layoutParameters = RelativeLayout.LayoutParams(200, 200)
+        layoutParameters.addRule(RelativeLayout.CENTER_IN_PARENT)
+        frameLayout.addView(progressBar, layoutParameters)
         rvRecipesHome.layoutManager = LinearLayoutManager(thisContext, RecyclerView.VERTICAL, false)
         rvRecipesHome.adapter = recipeAdapter
         viewModel.getRecipeList() // Get a random recipes from spoonacular api
@@ -61,6 +74,14 @@ class HomeFragment : Fragment() {
             recipes.clear()
             recipes.addAll(it)
             recipeAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.isLoading.observe(this, Observer {
+            if (it) {
+                progressBar.visibility = ProgressBar.VISIBLE
+            } else {
+                progressBar.visibility = ProgressBar.GONE
+            }
         })
     }
 

@@ -1,9 +1,13 @@
 package com.example.recipeapp.ui
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.webkit.URLUtil
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.model.*
 import kotlinx.android.synthetic.main.activity_recipe_details.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_step.*
 import java.lang.Exception
 
@@ -21,6 +26,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private val instruction = arrayListOf<Instruction>()
     private val ingredients = arrayListOf<Ingredient>()
     private val steps = arrayListOf<Step>()
+    private lateinit var progressBar: ProgressBar
     private val equipment = arrayListOf<Equipment>()
     private val stepAdapter = StepAdapter(steps)
     private val ingredientAdapter = IngredientAdapter(ingredients)
@@ -35,6 +41,12 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private fun initViews() {
         supportActionBar?.hide()
         val recipeIntent = intent.extras
+        progressBar = ProgressBar(this)
+        val colorCodeDark = Color.parseColor("#D81B60")
+        progressBar.indeterminateTintList = ColorStateList.valueOf(colorCodeDark)
+        val layoutParameters = RelativeLayout.LayoutParams(200, 200)
+        layoutParameters.addRule(RelativeLayout.CENTER_IN_PARENT)
+        detailsPage.addView(progressBar, layoutParameters)
 
         if(recipeIntent != null){
             val recipe: Recipe = recipeIntent.get("Recipe") as Recipe
@@ -71,6 +83,14 @@ class RecipeDetailsActivity : AppCompatActivity() {
             ingredients.clear()
             ingredients.addAll(it)
             ingredientAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.isLoading.observe(this, Observer {
+            if (it) {
+                progressBar.visibility = ProgressBar.VISIBLE
+            } else {
+                progressBar.visibility = ProgressBar.GONE
+            }
         })
     }
 
