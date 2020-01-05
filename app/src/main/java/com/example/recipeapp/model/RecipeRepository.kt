@@ -6,6 +6,8 @@ class RecipeRepository {
 
     private val recipeApiSearch: RecipesApiService = RecipeApi.createApi()
 
+    private val recipeApiSteps : RecipesApiService = RecipeApi.createApi()
+
     private val recipeApiIngredients : RecipesApiService = RecipeApi.createApi()
 
 
@@ -15,7 +17,9 @@ class RecipeRepository {
 
     fun getRecipeIngredientsAndInstructions(recipeId: String) = recipeApiIngredients.getRecipeIngredientsAndInstructions(recipeId)
 
-    fun getRecipeSteps(recipeId: String) = recipeApiIngredients.getRecipeSteps(recipeId)
+    fun getRecipeSteps(recipeId: String) = recipeApiSteps.getRecipeSteps(recipeId)
+
+    fun getRecipeIngredients(recipeId: String) = recipeApiIngredients.getRecipeIngredients(recipeId)
 
 
 }

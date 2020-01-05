@@ -42,6 +42,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
             else { Glide.with(this).load("https://spoonacular.com/recipeImages/" +  recipe.image).into(ivRecipeDetails) }
             tvRecipeTitle.text = recipe.title
             tvRecipeInstructionsTitle.text = "Instructions"
+            tvRecipeIngredientsTitle.text = "Ingredients"
             viewModel.getRecipeSteps(recipe.id)
             viewModel.getRecipeIngredientsAndInstructions(recipe.id)
             viewModel.getRecipeIngredients(recipe.id)

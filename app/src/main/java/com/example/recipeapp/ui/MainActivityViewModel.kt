@@ -9,7 +9,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Integer.parseInt
 
-class MainActivityViewModel(application: Application) : AndroidViewModel(application){
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
     private val recipeRepository = RecipeRepository()
     val recipe = MutableLiveData<List<Recipe>>()
@@ -24,15 +24,19 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
      * If the call encountered an error then populate the [error] object.
      */
     fun getRecipeListSearch(searchInput: String) {
-        recipeRepository.getRecipeListSearch(searchInput).enqueue(object : Callback<SearchResultsList> {
-            override fun onResponse(call: Call<SearchResultsList>, response: Response<SearchResultsList>) =
-                if (response.isSuccessful) recipe.value = response.body()?.resultsList
-                else error.value = "An error occurred: ${response.errorBody().toString()}"
+        recipeRepository.getRecipeListSearch(searchInput)
+            .enqueue(object : Callback<SearchResultsList> {
+                override fun onResponse(
+                    call: Call<SearchResultsList>,
+                    response: Response<SearchResultsList>
+                ) =
+                    if (response.isSuccessful) recipe.value = response.body()?.resultsList
+                    else error.value = "An error occurred: ${response.errorBody().toString()}"
 
-            override fun onFailure(call: Call<SearchResultsList>, t: Throwable) {
-                error.value = t.message
-            }
-        })
+                override fun onFailure(call: Call<SearchResultsList>, t: Throwable) {
+                    error.value = t.message
+                }
+            })
     }
 
     fun getRecipeList() {
@@ -49,20 +53,27 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
 
     fun getRecipeIngredientsAndInstructions(recipeId: String) {
-        recipeRepository.getRecipeIngredientsAndInstructions(recipeId).enqueue(object : Callback<List<Instruction>> {
-            override fun onResponse(call: Call<List<Instruction>>, response: Response<List<Instruction>>) =
-                if (response.isSuccessful) instruction.value = response.body()
-                else error.value = "An error occurred: ${response.errorBody().toString()}"
+        recipeRepository.getRecipeIngredientsAndInstructions(recipeId)
+            .enqueue(object : Callback<List<Instruction>> {
+                override fun onResponse(
+                    call: Call<List<Instruction>>,
+                    response: Response<List<Instruction>>
+                ) =
+                    if (response.isSuccessful) instruction.value = response.body()
+                    else error.value = "An error occurred: ${response.errorBody().toString()}"
 
-            override fun onFailure(call: Call<List<Instruction>>, t: Throwable) {
-                error.value = t.message
-            }
-        })
+                override fun onFailure(call: Call<List<Instruction>>, t: Throwable) {
+                    error.value = t.message
+                }
+            })
     }
 
     fun getRecipeSteps(recipeId: String) {
         recipeRepository.getRecipeSteps(recipeId).enqueue(object : Callback<List<Instruction>> {
-            override fun onResponse(call: Call<List<Instruction>>, response: Response<List<Instruction>>) =
+            override fun onResponse(
+                call: Call<List<Instruction>>,
+                response: Response<List<Instruction>>
+            ) =
                 if (response.isSuccessful)
                     for (instruction in response.body()!!) {
                         step.value = instruction.steps
@@ -76,22 +87,14 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun getRecipeIngredients(recipeId: String) {
-        recipeRepository.getRecipeSteps(recipeId).enqueue(object : Callback<List<Instruction>> {
-                var ingrList: ArrayList<Ingredient>? = ArrayList()
-            override fun onResponse(call: Call<List<Instruction>>, response: Response<List<Instruction>>) =
-                if (response.isSuccessful)
-                    for (instruction in response.body()!!) {
-                        for (steps in instruction.steps) {
-                            ingrList?.addAll(steps.ingredients)
-                        }
-                        ingredient.value = ingrList
-                    }
-                else error.value = "An error occurred: ${response.errorBody().toString()}"
+        recipeRepository.getRecipeIngredients(recipeId).enqueue(object : Callback<ExtendedIngredients> {
+                override fun onResponse(call: Call<ExtendedIngredients>, response: Response<ExtendedIngredients>) =
+                    if (response.isSuccessful) ingredient.value = response.body()?.ingredientsList
+                    else error.value = "An error occurred: ${response.errorBody().toString()}"
 
-            override fun onFailure(call: Call<List<Instruction>>, t: Throwable) {
-                error.value = t.message
-            }
-        })
+                override fun onFailure(call: Call<ExtendedIngredients>, t: Throwable) {
+                    error.value = t.message
+                }
+            })
     }
-
 }

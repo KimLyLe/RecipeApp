@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Ingredient (
     @SerializedName("name")var name: String,
-    @SerializedName("image")var image: String
-) : Parcelable
+    @SerializedName("amount")var amount: String,
+    @SerializedName("unit")var unit: String
+    ) : Parcelable

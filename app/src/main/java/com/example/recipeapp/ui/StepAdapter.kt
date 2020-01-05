@@ -27,7 +27,7 @@ class StepAdapter(private val step: List<Step>)
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(step: Step) {
-            itemView.tvStepNr.text = step.number
+            itemView.tvStepNr.text = "Step " + step.number
             itemView.tvStep.text = step.steps
         }
     }

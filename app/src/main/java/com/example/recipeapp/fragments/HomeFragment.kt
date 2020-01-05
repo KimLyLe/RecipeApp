@@ -13,8 +13,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
-import com.example.recipeapp.model.Ingredient
-import com.example.recipeapp.model.Instruction
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.RecipeAdapter
 import com.example.recipeapp.ui.MainActivityViewModel

@@ -18,4 +18,7 @@ interface RecipesApiService {
 
     @GET("{recipeId}" + "/analyzedInstructions?apiKey=3459d326bd934141b86d2a1c72016792")
     fun getRecipeSteps(@Path("recipeId") recipeId: String): Call<List<Instruction>>
+
+    @GET("{recipeId}" + "/information?apiKey=3459d326bd934141b86d2a1c72016792")
+    fun getRecipeIngredients(@Path("recipeId") recipeId: String): Call<ExtendedIngredients>
 }
