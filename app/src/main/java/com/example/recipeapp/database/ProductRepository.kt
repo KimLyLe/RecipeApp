@@ -20,4 +20,6 @@ class ProductRepository(context: Context) {
 
     suspend fun deleteAllProducts() = productDao.deleteAllProducts()
 
+    suspend fun updateProducts(product: Product) = productDao.updateProducts(product)
+
 }

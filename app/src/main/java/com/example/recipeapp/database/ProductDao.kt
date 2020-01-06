@@ -1,9 +1,6 @@
 package com.example.recipeapp.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.recipeapp.model.Product
 
 @Dao
@@ -20,5 +17,8 @@ interface ProductDao {
 
     @Query("DELETE FROM product_table")
     suspend fun deleteAllProducts()
+
+    @Update
+    suspend fun updateProducts(product: Product)
 
 }
