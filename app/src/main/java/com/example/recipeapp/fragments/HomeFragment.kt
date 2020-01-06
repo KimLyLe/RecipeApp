@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
     private fun initViews() {
         ivSearch.setOnClickListener{
             val searchInput = etSearch.text.toString()
-            viewModel.getRecipeListSearch(searchInput)
+            viewModel.  getRecipeListSearch(searchInput)
         }
         progressBar = ProgressBar(thisContext)
         val colorCodeDark = parseColor("#D81B60")

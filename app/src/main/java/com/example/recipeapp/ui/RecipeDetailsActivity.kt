@@ -27,7 +27,6 @@ class RecipeDetailsActivity : AppCompatActivity() {
     private val ingredients = arrayListOf<Ingredient>()
     private val steps = arrayListOf<Step>()
     private lateinit var progressBar: ProgressBar
-    private val equipment = arrayListOf<Equipment>()
     private val stepAdapter = StepAdapter(steps)
     private val ingredientAdapter = IngredientAdapter(ingredients)
 
